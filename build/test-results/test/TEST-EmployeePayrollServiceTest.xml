@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="EmployeePayrollServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-05-21T03:54:43" hostname="LAPTOP-Q9T3UUC8" time="0.569">
+  <properties/>
+  <testcase name="givenEmployeePayrollInDB_WhenRetrieved_ShouldMatch_EmployeeCount()" classname="EmployeePayrollServiceTest" time="0.569"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
