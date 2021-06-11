@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="EmployeePayrollServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-05-21T03:54:43" hostname="LAPTOP-Q9T3UUC8" time="0.569">
+<testsuite name="EmployeePayrollServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-05-22T10:08:44" hostname="LAPTOP-Q9T3UUC8" time="0.698">
   <properties/>
-  <testcase name="givenEmployeePayrollInDB_WhenRetrieved_ShouldMatch_EmployeeCount()" classname="EmployeePayrollServiceTest" time="0.569"/>
-  <system-out><![CDATA[]]></system-out>
+  <testcase name="givenNewSalaryOfEmployee_WhenUpdated_ShouldSyncWithDatabase()" classname="EmployeePayrollServiceTest" time="0.698"/>
+  <system-out><![CDATA[EmployeePayrollData{id=1, Salary=300000.0, Start=2018-01-03, name='Bill'}
+EmployeePayrollData{id=1, Salary=300000.0, Start=2018-01-03, name='Bill'}
+]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
