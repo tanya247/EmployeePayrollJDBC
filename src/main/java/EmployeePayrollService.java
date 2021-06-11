@@ -45,6 +45,12 @@ public class EmployeePayrollService {
         EmployeeDBService employeeDBService = new EmployeeDBService();
         return employeeDBService.getAverageSalaryByGender();
     }
+    public void addEmployeeToPayRoll(String name, double salary, LocalDate startDate, String gender) {
+        EmployeeDBService employeeDBService = new EmployeeDBService();
+        employeePayrollList.add(employeeDBService.addEmployeeToPayRoll(name,salary,startDate,gender));
+
+
+    }
 
 
 
