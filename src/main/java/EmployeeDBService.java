@@ -157,4 +157,74 @@ public class EmployeeDBService {
         }
         return employeePayRoll;
     }
+    public EmployeePayRoll addEmployeeToPayRoll(String name, double salary, LocalDate startDate, String gender) {
+        int employeeId= -1;
+        Connection connection= null;
+        EmployeePayRoll employeePayRoll= null;
+        try {
+            connection=this.getConnection();
+            connection.setAutoCommit(false);
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try (Statement statement=connection.createStatement()){
+            String sql = String.format("Insert into employee_payroll (name,gender,salary,startDate)" +
+                    "Values ('%s','%s','%s','%s')",name,gender,salary,Date.valueOf(startDate));
+
+            int rowAffected= statement.executeUpdate(sql, statement.RETURN_GENERATED_KEYS);
+            if(rowAffected ==1) {
+                ResultSet resultSet = statement.getGeneratedKeys();
+                if(resultSet.next()) employeeId=resultSet.getInt(1);
+            }
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+
+        }
+        try (Statement statement=connection.createStatement()){
+            double deductions = salary * 0.2;
+            double taxablepay = salary - deductions;
+            double tax = taxablepay * 0.1;
+            double netPay = salary - tax;
+            String sql = String.format("Insert into payroll_details "+ "(employee_id, basic_pay, deductions, taxable_pay, tax, net_pay) values"+
+                    "(%s, %s, %s, %s, %s, %s)", employeeId, salary,deductions, taxablepay, tax, netPay);
+            int rowAffected = statement.executeUpdate(sql);
+            if(rowAffected ==1) {
+                EmployeePayrollData employeePayRollData = new EmployeePayrollData(employeeId, name, salary, startDate);
+
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        }
+        try {
+            connection.commit();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        finally {
+            if(connection !=null) {
+                try {
+                    connection.close();
+                }catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return employeePayRoll;
+
+    }
 }
