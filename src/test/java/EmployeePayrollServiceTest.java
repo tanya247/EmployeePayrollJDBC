@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 public class EmployeePayrollServiceTest {
     @Test
@@ -30,10 +31,15 @@ public class EmployeePayrollServiceTest {
         LocalDate startDate= LocalDate.of(2021, 01, 01);
         LocalDate endDate= LocalDate.now();
         List<EmployeePayrollData> employeePayrollData =
-                employeePayrollService.readEmployeePayrollDataForDateRange(IOService.DB_IO, startDate,endDate);
-        Assert.assertEquals(3,employeePayrollData.size());
-
-
+                employeePayrollService.readEmployeePayrollDataForDateRange(startDate,endDate);
+        Assertions.assertEquals(3,employeePayrollData.size());
+    }
+    @SuppressWarnings("unlikely-arg-type")
+    @Test
+    public void givenPayrollData_WhenAverageRetrievedByGender_ShouldReturnProperValue() {
+        EmployeePayrollService employeePayrollService=new EmployeePayrollService();
+        Map<String, Double> averageSalaryByGender = employeePayrollService.readAverageSalaryByGender();
+        Assertions.assertTrue(averageSalaryByGender.get("M").equals(3500000) && averageSalaryByGender.get("F").equals(4000000) );
 
     }
 }

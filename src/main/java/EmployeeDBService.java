@@ -1,9 +1,8 @@
 import java.sql.*;
 import java.lang.IllegalStateException;
+import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
+import java.util.*;
 
 public class EmployeeDBService {
     private PreparedStatement employeePayrollDataStatement;
@@ -122,5 +121,22 @@ public class EmployeeDBService {
     public List<EmployeePayrollData> getRecordsAddedInGivenDateRange(LocalDate startDate, LocalDate endDate) {
         String sql=String.format("Select * from employee_payroll where startdate between '%s' and '%s';", Date.valueOf(startDate),Date.valueOf(endDate));
         return this.getEmployeePayrollData(sql);
+    }
+    public Map<String, Double> getAverageSalaryByGender() {
+        String sql="select gender, AVG(salary) as avg_salary from employee_payroll group by gender;";
+        Map<String, Double> genderToAverageSalaryMap = new HashMap<>();
+        try (Connection connection=this.getConnection()){
+
+            Statement statement=connection.createStatement();
+            ResultSet resultset=statement.executeQuery(sql);
+            while(resultset.next()) {
+                String gender = resultset.getString("gender");
+                double salary = resultset.getDouble("avg_salary");
+                genderToAverageSalaryMap.put(gender, salary);
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return genderToAverageSalaryMap;
     }
 }

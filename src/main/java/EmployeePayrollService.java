@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 public class EmployeePayrollService {
 
@@ -35,8 +36,14 @@ public class EmployeePayrollService {
     }
     public List<EmployeePayrollData> readEmployeePayrollDataForDateRange(LocalDate startDate,
                                                                          LocalDate endDate){
-        List<EmployeePayrollData> employeePayrollData = EmployeeDBService.getRecordsAddedInGivenDateRange(startDate, endDate);
+        EmployeeDBService employeeDBService = new EmployeeDBService();
+        List<EmployeePayrollData> employeePayrollData = employeeDBService.getRecordsAddedInGivenDateRange(startDate, endDate);
         return employeePayrollData;
+    }
+    public Map<String, Double> readAverageSalaryByGender() {
+
+        EmployeeDBService employeeDBService = new EmployeeDBService();
+        return employeeDBService.getAverageSalaryByGender();
     }
 
 
