@@ -7,6 +7,9 @@ import java.util.List;
 
 public class EmployeeDBService {
     private PreparedStatement employeePayrollDataStatement;
+
+
+
     public Connection getConnection() throws SQLException {
         String jdbcURL = "jdbc:mysql://localhost:3306/payroll_service?useSS1=false";
         String userName = "root";
@@ -115,5 +118,9 @@ public class EmployeeDBService {
         }catch(SQLException e) {
             e.printStackTrace();
         }
+    }
+    public List<EmployeePayrollData> getRecordsAddedInGivenDateRange(LocalDate startDate, LocalDate endDate) {
+        String sql=String.format("Select * from employee_payroll where startdate between '%s' and '%s';", Date.valueOf(startDate),Date.valueOf(endDate));
+        return this.getEmployeePayrollData(sql);
     }
 }

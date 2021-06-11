@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.List;
 
 public class EmployeePayrollService {
@@ -32,4 +33,12 @@ public class EmployeePayrollService {
         System.out.println(getEmployeePayrollData(name));
         return employeePayrollList.get(0).equals(getEmployeePayrollData(name));
     }
+    public List<EmployeePayrollData> readEmployeePayrollDataForDateRange(LocalDate startDate,
+                                                                         LocalDate endDate){
+        List<EmployeePayrollData> employeePayrollData = EmployeeDBService.getRecordsAddedInGivenDateRange(startDate, endDate);
+        return employeePayrollData;
+    }
+
+
+
 }
